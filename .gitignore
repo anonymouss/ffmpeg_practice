@@ -1,0 +1,6 @@
+ffmpeg_source/
+ffmpeg_build/
+dependencies/
+
+*.patch
+*.diff
