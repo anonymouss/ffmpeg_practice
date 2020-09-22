@@ -207,16 +207,13 @@ int main(int argc, const char *argv[]) {
 
     logging("initializing");
 
-    for (auto i = 1; i < argc; ++i) {
-        // TODO: any way of clear pFormatContext to reuse it in next iteration instead of allocating
-        // a new one. looks like simply re-use it in avformat_open_input(), the function always
-        // return 0(OK) even if next URL is invalid
-        AVFormatContext *pFormatContext = avformat_alloc_context();
-        if (!pFormatContext) {
-            logging("ERROR: failed to allocate memory for format context");
-            return ERROR;
-        }
+    AVFormatContext *pFormatContext = avformat_alloc_context();
+    if (!pFormatContext) {
+        logging("ERROR: failed to allocate memory for format context");
+        return ERROR;
+    }
 
+    for (auto i = 1; i < argc; ++i) {
         const char *filename = argv[i];
         logging("opening the %dst input file (%s) and loading format (container) header", i,
                 filename);
@@ -294,7 +291,7 @@ int main(int argc, const char *argv[]) {
         }
 
         avformat_close_input(&pFormatContext);
-        // avformat_free_context(pFormatContext);
         logging("OK: process (%s) done!", filename);
     }
+    avformat_free_context(pFormatContext);
 }
