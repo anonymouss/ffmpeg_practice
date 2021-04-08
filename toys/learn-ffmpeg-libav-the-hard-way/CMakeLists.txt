@@ -19,3 +19,6 @@ list(APPEND UTILS_SOURCE "utils/ff_logging.cpp")
 
 add_executable(00_hello_world 00_hello_world.cpp ${UTILS_SOURCE})
 target_link_libraries(00_hello_world ${FF_SHARED_LIBS})
+
+add_executable(02_remuxing 02_remuxing.cpp ${UTILS_SOURCE})
+target_link_libraries(02_remuxing ${FF_SHARED_LIBS})
